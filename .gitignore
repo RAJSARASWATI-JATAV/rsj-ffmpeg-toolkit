@@ -1,0 +1,72 @@
+# RSJ-FFMPEG .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+input/
+output/
+logs/
+reports/
+temp/
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.mp3
+*.wav
+*.gif
+*.png
+*.jpg
+*.jpeg
+
+# Keep example files
+!examples/
+!assets/
+
+# Config (keep template)
+# config.json
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.trf
+palette.png
+concat_list.txt

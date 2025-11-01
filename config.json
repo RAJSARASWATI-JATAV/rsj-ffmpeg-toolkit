@@ -1,0 +1,90 @@
+{
+  "version": "2.2.0",
+  "branding": {
+    "author": "RAJSARASWATI JATAV",
+    "logo": "./assets/rsj-logo.png",
+    "watermark": "© RAJSARASWATI JATAV 2025",
+    "intro": "./assets/intro.mp4",
+    "outro": "./assets/outro.mp4"
+  },
+  "defaults": {
+    "video_codec": "libx264",
+    "audio_codec": "aac",
+    "quality": "high",
+    "ai_upscale": "4x",
+    "parallel_jobs": 4,
+    "output_format": "mp4"
+  },
+  "ai_models": {
+    "upscale": "realesrgan-x4plus",
+    "denoise": "dncnn",
+    "colorize": "deoldify",
+    "vocal_separation": "demucs"
+  },
+  "streaming": {
+    "auto_reconnect": true,
+    "reconnect_delay": 5,
+    "max_retries": 10,
+    "bitrate": "3000k",
+    "fps": 30
+  },
+  "api": {
+    "enabled": true,
+    "port": 8080,
+    "host": "0.0.0.0",
+    "auth_required": true
+  },
+  "paths": {
+    "input": "./input",
+    "output": "./output",
+    "logs": "./logs",
+    "reports": "./reports",
+    "temp": "./temp",
+    "plugins": "./plugins"
+  },
+  "features": {
+    "batch_processing": true,
+    "ai_enhancement": true,
+    "streaming": true,
+    "bot_integration": true,
+    "plugin_system": true,
+    "auto_update": true,
+    "gpt_director": true,
+    "auto_montage": true,
+    "cloud_processing": true,
+    "advanced_analytics": true
+  },
+  "gpt": {
+    "enabled": false,
+    "api_key": "",
+    "model": "gpt-4",
+    "max_tokens": 2000
+  },
+  "cloud": {
+    "default_provider": "aws",
+    "auto_upload": false,
+    "auto_download": true,
+    "providers": {
+      "aws": {
+        "enabled": false,
+        "region": "us-east-1"
+      },
+      "gcp": {
+        "enabled": false,
+        "project_id": ""
+      },
+      "azure": {
+        "enabled": false
+      },
+      "cloudflare": {
+        "enabled": false
+      }
+    }
+  },
+  "analytics": {
+    "enabled": true,
+    "port": 5001,
+    "retention_days": 30,
+    "export_format": "json"
+  }
+}

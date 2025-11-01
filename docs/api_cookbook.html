@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSJ-FFMPEG API Cookbook | RAJSARASWATI JATAV</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .recipe-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .recipe-card:hover {
+            border-color: #00ffff;
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+        }
+        
+        .recipe-title {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .recipe-description {
+            color: #ccc;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 5px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .code-block code {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .copy-btn {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            float: right;
+            margin-top: -0.5rem;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(0, 255, 255, 0.3);
+        }
+        
+        .category-tag {
+            display: inline-block;
+            background: rgba(255, 0, 255, 0.2);
+            color: #ff00ff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📖 RSJ-FFMPEG API COOKBOOK</h1>
+            <p class="subtitle">50+ Ready-to-Use Code Recipes | By RAJSARASWATI JATAV</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <a href="index.html">Home</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="playground.html">Playground</a>
+            <a href="tutorials.html">Tutorials</a>
+        </nav>
+
+        <section class="content-section">
+            <h2>🎬 Video Processing Recipes</h2>
+            
+            <div class="recipe-grid">
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🎯 Basic Video Conversion</h3>
+                    <span class="category-tag">Beginner</span>
+                    <p class="recipe-description">
+                        Convert video to different format with quality control
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg import RSJToolkit
+
+toolkit = RSJToolkit()
+toolkit.convert_video(
+    input_file="input.mp4",
+    output_file="output.mp4",
+    quality="high"
+)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">✨ AI Video Upscaling</h3>
+                    <span class="category-tag">Advanced</span>
+                    <p class="recipe-description">
+                        Upscale video to 4K using AI enhancement
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg import RSJToolkit
+
+toolkit = RSJToolkit()
+toolkit.ai_enhance(
+    input_file="low_res.mp4",
+    output_file="4k.mp4",
+    upscale=4,
+    denoise=True,
+    stabilize=True
+)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🎨 Apply Color Grading</h3>
+                    <span class="category-tag">Intermediate</span>
+                    <p class="recipe-description">
+                        Apply professional cinematic color grading
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.color_grading import ColorGradingEngine
+
+engine = ColorGradingEngine({})
+engine.apply_preset(
+    input_file="video.mp4",
+    output_file="graded.mp4",
+    preset="cinematic",
+    intensity=0.8
+)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🎭 Face Blur for Privacy</h3>
+                    <span class="category-tag">Advanced</span>
+                    <p class="recipe-description">
+                        Automatically detect and blur all faces
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.face_detection import FaceDetectionEngine
+
+engine = FaceDetectionEngine({})
+engine.privacy_mode(
+    input_file="video.mp4",
+    output_file="private.mp4",
+    mode="full"
+)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🚀 GPU-Accelerated Encoding</h3>
+                    <span class="category-tag">Advanced</span>
+                    <p class="recipe-description">
+                        Encode video using GPU for 10x faster processing
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.gpu_acceleration import GPUAccelerationEngine
+
+gpu = GPUAccelerationEngine({})
+gpu.encode_gpu(
+    input_file="input.mp4",
+    output_file="output.mp4",
+    codec="h265",
+    preset="fast",
+    quality=20
+)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">📊 Batch Processing</h3>
+                    <span class="category-tag">Intermediate</span>
+                    <p class="recipe-description">
+                        Process entire directory with AI enhancement
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg import RSJToolkit
+
+toolkit = RSJToolkit()
+toolkit.batch_convert(
+    input_dir="./videos/",
+    output_dir="./enhanced/",
+    ai_upscale="4x",
+    enhance=True,
+    watermark="RAJSARASWATI JATAV"
+)</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>🔊 Audio Processing Recipes</h2>
+            
+            <div class="recipe-grid">
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🎵 Create Surround Sound</h3>
+                    <span class="category-tag">Advanced</span>
+                    <p class="recipe-description">
+                        Convert stereo to 5.1 surround sound
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.spatial_audio import SpatialAudioEngine
+
+audio = SpatialAudioEngine({})
+audio.create_surround(
+    input_file="stereo.mp4",
+    output_file="surround.mp4",
+    config="5.1",
+    center_boost=1.2
+)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🎧 Binaural 3D Audio</h3>
+                    <span class="category-tag">Advanced</span>
+                    <p class="recipe-description">
+                        Create immersive 3D audio for headphones
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.spatial_audio import SpatialAudioEngine
+
+audio = SpatialAudioEngine({})
+audio.binaural_audio(
+    input_file="video.mp4",
+    output_file="3d_audio.mp4",
+    hrtf_profile="wide"
+)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🎭 Dolby Atmos Simulation</h3>
+                    <span class="category-tag">Expert</span>
+                    <p class="recipe-description">
+                        Simulate Dolby Atmos with height channels
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.spatial_audio import SpatialAudioEngine
+
+audio = SpatialAudioEngine({})
+audio.dolby_atmos_simulation(
+    input_file="video.mp4",
+    output_file="atmos.mp4",
+    height_channels=4,
+    room_size="large"
+)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🔇 Audio Normalization</h3>
+                    <span class="category-tag">Beginner</span>
+                    <p class="recipe-description">
+                        Normalize audio levels for consistent volume
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg import RSJToolkit
+
+toolkit = RSJToolkit()
+toolkit.normalize_audio(
+    input_file="video.mp4",
+    output_file="normalized.mp4",
+    target_level=-16
+)</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>⚡ Performance & Optimization</h2>
+            
+            <div class="recipe-grid">
+                <div class="recipe-card">
+                    <h3 class="recipe-title">📊 Profile Performance</h3>
+                    <span class="category-tag">Advanced</span>
+                    <p class="recipe-description">
+                        Profile encoding performance and get optimization tips
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.profiler import PerformanceProfiler
+
+profiler = PerformanceProfiler({})
+profiler.start_profile("encoding")
+
+# Your encoding code here
+
+profile = profiler.end_profile()
+suggestions = profiler.get_optimization_suggestions()
+print(suggestions)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">💾 Smart Caching</h3>
+                    <span class="category-tag">Intermediate</span>
+                    <p class="recipe-description">
+                        Cache processed files to avoid reprocessing
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.cache import CacheManager
+
+cache = CacheManager({})
+
+# Check cache first
+cached = cache.get_processed_file(
+    "input.mp4", "enhance", {"upscale": 4}
+)
+
+if not cached:
+    # Process and cache
+    # ... processing code ...
+    cache.cache_processed_file(
+        "input.mp4", "output.mp4", 
+        "enhance", {"upscale": 4}
+    )</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🌐 Distributed Processing</h3>
+                    <span class="category-tag">Expert</span>
+                    <p class="recipe-description">
+                        Process videos across multiple machines
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.distributed import ClusterManager
+
+manager = ClusterManager({'is_master': True})
+manager.setup_cluster(num_nodes=4)
+manager.start_cluster()
+
+# Submit jobs
+processor = manager.processor
+processor.submit_job(
+    job_id="job_001",
+    job_type="encode",
+    input_file="input.mp4",
+    output_file="output.mp4",
+    params={"codec": "h265"}
+)</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>🎯 Complete Workflows</h2>
+            
+            <div class="recipe-grid">
+                <div class="recipe-card">
+                    <h3 class="recipe-title">📺 YouTube Upload Workflow</h3>
+                    <span class="category-tag">Expert</span>
+                    <p class="recipe-description">
+                        Complete pipeline from raw footage to YouTube-ready
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg import RSJToolkit
+from rsj_ffmpeg.color_grading import ColorGradingEngine
+
+toolkit = RSJToolkit()
+color = ColorGradingEngine({})
+
+# 1. AI Upscale
+toolkit.ai_enhance("raw.mp4", "upscaled.mp4", upscale=4)
+
+# 2. Color Grade
+color.apply_preset("upscaled.mp4", "graded.mp4", "cinematic")
+
+# 3. Add Branding
+toolkit.add_watermark(
+    "graded.mp4", "branded.mp4",
+    text="RAJSARASWATI JATAV"
+)
+
+# 4. Add Intro/Outro
+toolkit.concatenate_videos(
+    ["intro.mp4", "branded.mp4", "outro.mp4"],
+    "final.mp4"
+)
+
+# 5. Generate Thumbnails
+toolkit.generate_thumbnails("final.mp4", "./thumbs/", count=5)</code>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <h3 class="recipe-title">🔒 Privacy Protection Workflow</h3>
+                    <span class="category-tag">Advanced</span>
+                    <p class="recipe-description">
+                        Detect and anonymize all faces in video
+                    </p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <code>from rsj_ffmpeg.face_detection import FaceDetectionEngine
+
+engine = FaceDetectionEngine({})
+
+# 1. Detect faces
+faces = engine.detect_faces(
+    "video.mp4",
+    method="opencv",
+    output_json="faces.json"
+)
+
+print(f"Found {len(faces)} faces")
+
+# 2. Apply privacy protection
+engine.privacy_mode(
+    "video.mp4",
+    "private.mp4",
+    mode="full"  # or "emoji", "pixelate"
+)
+
+# 3. Batch process directory
+report = engine.auto_privacy_batch(
+    "./videos/",
+    "./private/",
+    mode="full"
+)</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with 💀 by <strong>RAJSARASWATI JATAV</strong></p>
+            <p>© 2025 RSJ-FFMPEG | All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    button.textContent = '📋 Copy';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

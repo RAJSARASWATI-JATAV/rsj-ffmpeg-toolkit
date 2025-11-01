@@ -1,0 +1,72 @@
+# RSJ-FFMPEG Docker Compose Configuration
+# © 2025 RAJSARASWATI JATAV
+
+version: '3.8'
+
+services:
+  # API Server
+  api:
+    build: .
+    container_name: rsj-ffmpeg-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./input:/app/input
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./reports:/app/reports
+    environment:
+      - RSJ_FFMPEG_VERSION=2.0.0
+    restart: unless-stopped
+    command: python3 api_server.py
+
+  # Telegram Bot
+  telegram-bot:
+    build: .
+    container_name: rsj-ffmpeg-telegram
+    volumes:
+      - ./bot_downloads:/app/bot_downloads
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    restart: unless-stopped
+    command: python3 telegram_bot.py
+    depends_on:
+      - api
+
+  # Discord Bot
+  discord-bot:
+    build: .
+    container_name: rsj-ffmpeg-discord
+    volumes:
+      - ./bot_downloads:/app/bot_downloads
+    environment:
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+    restart: unless-stopped
+    command: python3 discord_bot.py
+    depends_on:
+      - api
+
+  # Watch Folder Automation
+  watch-folder:
+    build: .
+    container_name: rsj-ffmpeg-watch
+    volumes:
+      - ./watch_input:/app/watch_input
+      - ./watch_output:/app/watch_output
+    restart: unless-stopped
+    command: python3 automation/watch_folder.py --watch /app/watch_input --output /app/watch_output --enhance --watermark "RAJSARASWATI JATAV"
+    depends_on:
+      - api
+
+volumes:
+  input:
+  output:
+  logs:
+  reports:
+  bot_downloads:
+  watch_input:
+  watch_output:
+
+networks:
+  default:
+    name: rsj-ffmpeg-network

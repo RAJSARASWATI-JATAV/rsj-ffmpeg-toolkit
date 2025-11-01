@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSJ-FFMPEG Video Tutorials | RAJSARASWATI JATAV</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .tutorial-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+        
+        .tutorial-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-title {
+            color: #00ffff;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tutorial-description {
+            color: #ccc;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tutorial-btn {
+            background: linear-gradient(135deg, #00ffff, #00cccc);
+            color: #000;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .tutorial-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .difficulty {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        
+        .difficulty.beginner {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+        }
+        
+        .difficulty.intermediate {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+        }
+        
+        .difficulty.advanced {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+        }
+        
+        .video-player {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-player.active {
+            display: flex;
+        }
+        
+        .video-container {
+            max-width: 90%;
+            max-height: 90%;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .close-video {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 10001;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 RSJ-FFMPEG VIDEO TUTORIALS</h1>
+            <p class="subtitle">Learn from RAJSARASWATI JATAV | Step-by-Step Guides</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <a href="index.html">Home</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="playground.html">Playground</a>
+            <a href="tutorials.html" class="active">Tutorials</a>
+        </nav>
+
+        <section class="content-section">
+            <h2>📚 Getting Started</h2>
+            
+            <div class="tutorial-grid">
+                <!-- Tutorial 1 -->
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">🚀</div>
+                    <h3 class="tutorial-title">Installation & Setup</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty beginner">Beginner</span>
+                        <span>⏱️ 5 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Learn how to install RSJ-FFMPEG on Windows, Linux, macOS, and Termux. 
+                        Complete setup guide with troubleshooting tips.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('installation')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <!-- Tutorial 2 -->
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">🎬</div>
+                    <h3 class="tutorial-title">Basic Video Conversion</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty beginner">Beginner</span>
+                        <span>⏱️ 8 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Master the basics of video format conversion. Learn about codecs, 
+                        quality settings, and batch processing.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('conversion')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <!-- Tutorial 3 -->
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">✨</div>
+                    <h3 class="tutorial-title">AI Video Enhancement</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty intermediate">Intermediate</span>
+                        <span>⏱️ 12 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Discover AI-powered upscaling, denoising, and color correction. 
+                        Transform low-quality videos into stunning 4K content.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('ai-enhancement')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <!-- Tutorial 4 -->
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">🎨</div>
+                    <h3 class="tutorial-title">Color Grading Mastery</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty intermediate">Intermediate</span>
+                        <span>⏱️ 15 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Learn professional color grading techniques. Apply cinematic looks, 
+                        create custom LUTs, and master the 20+ built-in presets.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('color-grading')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <!-- Tutorial 5 -->
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">🎭</div>
+                    <h3 class="tutorial-title">Face Detection & Privacy</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty intermediate">Intermediate</span>
+                        <span>⏱️ 10 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Protect privacy with AI face detection and blurring. Learn selective 
+                        face blur, tracking, and anonymization techniques.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('face-detection')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <!-- Tutorial 6 -->
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">🔊</div>
+                    <h3 class="tutorial-title">Spatial Audio & 3D Sound</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty advanced">Advanced</span>
+                        <span>⏱️ 18 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Create immersive audio experiences. Master surround sound, Dolby Atmos 
+                        simulation, and binaural audio for headphones.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('spatial-audio')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <!-- Tutorial 7 -->
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">📡</div>
+                    <h3 class="tutorial-title">Live Streaming Setup</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty advanced">Advanced</span>
+                        <span>⏱️ 20 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Stream to YouTube, Twitch, Facebook simultaneously. Learn overlays, 
+                        chat integration, and professional streaming workflows.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('streaming')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <!-- Tutorial 8 -->
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">🚀</div>
+                    <h3 class="tutorial-title">GPU Acceleration</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty advanced">Advanced</span>
+                        <span>⏱️ 14 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Supercharge your workflow with GPU acceleration. Support for NVIDIA, 
+                        AMD, Intel, and Apple Silicon hardware encoding.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('gpu')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <!-- Tutorial 9 -->
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">🤖</div>
+                    <h3 class="tutorial-title">Automation & Batch Processing</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty advanced">Advanced</span>
+                        <span>⏱️ 16 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Automate your workflow with watch folders, schedulers, and batch 
+                        processing. Save hours with intelligent automation.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('automation')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>🎯 Professional Workflows</h2>
+            
+            <div class="tutorial-grid">
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">📺</div>
+                    <h3 class="tutorial-title">YouTube Production Pipeline</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty advanced">Advanced</span>
+                        <span>⏱️ 25 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Complete YouTube workflow from raw footage to upload-ready content. 
+                        Includes upscaling, color grading, branding, and thumbnail generation.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('youtube-workflow')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">🎵</div>
+                    <h3 class="tutorial-title">Music Video Production</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty advanced">Advanced</span>
+                        <span>⏱️ 22 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Create stunning music videos with vibrant colors, effects, and 
+                        spatial audio. Professional-grade results in minutes.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('music-video')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="tutorial-thumbnail">📱</div>
+                    <h3 class="tutorial-title">Social Media Content Creation</h3>
+                    <div class="tutorial-meta">
+                        <span class="difficulty intermediate">Intermediate</span>
+                        <span>⏱️ 18 min</span>
+                    </div>
+                    <p class="tutorial-description">
+                        Optimize content for Instagram, TikTok, and YouTube Shorts. 
+                        Batch process and create platform-specific versions automatically.
+                    </p>
+                    <button class="tutorial-btn" onclick="playTutorial('social-media')">
+                        ▶️ Watch Tutorial
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with 💀 by <strong>RAJSARASWATI JATAV</strong></p>
+            <p>© 2025 RSJ-FFMPEG | All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="video-player" id="videoPlayer">
+        <button class="close-video" onclick="closeVideo()">✕ Close</button>
+        <div class="video-container">
+            <div style="padding: 4rem; text-align: center; color: white;">
+                <h2 style="color: #00ffff; margin-bottom: 1rem;">🎬 Tutorial Video</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                    Video tutorials coming soon!
+                </p>
+                <p style="color: #888;">
+                    In the meantime, check out our comprehensive documentation and 
+                    interactive playground to learn RSJ-FFMPEG.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function playTutorial(tutorialId) {
+            document.getElementById('videoPlayer').classList.add('active');
+            console.log('Playing tutorial:', tutorialId);
+        }
+
+        function closeVideo() {
+            document.getElementById('videoPlayer').classList.remove('active');
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeVideo();
+            }
+        });
+    </script>
+</body>
+</html>

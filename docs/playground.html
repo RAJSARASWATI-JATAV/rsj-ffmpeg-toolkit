@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Playground | RSJ-FFMPEG Power Toolkit</title>
+    <meta name="description" content="Try RSJ-FFMPEG commands interactively in your browser">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="playground.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="skull-icon">☠️</span>
+                <span class="brand-text">RSJ-FFMPEG</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#features">Features</a>
+                <a href="documentation.html">API</a>
+                <a href="playground.html" class="active">Playground</a>
+                <a href="https://github.com/RAJSARASWATI-JATAV/rsj-ffmpeg-toolkit" target="_blank" class="btn-github">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Playground Hero -->
+    <section class="playground-hero">
+        <div class="container">
+            <h1 class="playground-title">
+                <span class="gradient-text">Interactive Playground</span>
+            </h1>
+            <p class="playground-subtitle">
+                Experiment with RSJ-FFMPEG commands in real-time
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Playground -->
+    <section class="playground-main">
+        <div class="container">
+            <div class="playground-layout">
+                <!-- Sidebar with Templates -->
+                <aside class="playground-sidebar">
+                    <h3>Quick Templates</h3>
+                    <div class="template-list">
+                        <button class="template-btn" data-template="convert">
+                            <span class="template-icon">🎬</span>
+                            <span class="template-name">Basic Conversion</span>
+                        </button>
+                        <button class="template-btn" data-template="upscale">
+                            <span class="template-icon">⬆️</span>
+                            <span class="template-name">AI Upscale</span>
+                        </button>
+                        <button class="template-btn" data-template="watermark">
+                            <span class="template-icon">💧</span>
+                            <span class="template-name">Add Watermark</span>
+                        </button>
+                        <button class="template-btn" data-template="gif">
+                            <span class="template-icon">🎞️</span>
+                            <span class="template-name">Create GIF</span>
+                        </button>
+                        <button class="template-btn" data-template="audio">
+                            <span class="template-icon">🎵</span>
+                            <span class="template-name">Extract Audio</span>
+                        </button>
+                        <button class="template-btn" data-template="batch">
+                            <span class="template-icon">📦</span>
+                            <span class="template-name">Batch Process</span>
+                        </button>
+                        <button class="template-btn" data-template="stream">
+                            <span class="template-icon">📺</span>
+                            <span class="template-name">Live Stream</span>
+                        </button>
+                        <button class="template-btn" data-template="enhance">
+                            <span class="template-icon">✨</span>
+                            <span class="template-name">AI Enhance</span>
+                        </button>
+                    </div>
+
+                    <div class="options-panel">
+                        <h3>Options</h3>
+                        <div class="option-group">
+                            <label>
+                                <input type="checkbox" id="opt-enhance" />
+                                <span>Enable Enhancement</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" id="opt-watermark" />
+                                <span>Add Watermark</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" id="opt-normalize" />
+                                <span>Normalize Audio</span>
+                            </label>
+                        </div>
+                        <div class="option-group">
+                            <label for="upscale-factor">Upscale Factor:</label>
+                            <select id="upscale-factor">
+                                <option value="2x">2x</option>
+                                <option value="4x" selected>4x</option>
+                                <option value="8x">8x</option>
+                            </select>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Code Editor -->
+                <div class="playground-editor">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active" data-lang="cli">CLI</button>
+                            <button class="editor-tab" data-lang="python">Python</button>
+                            <button class="editor-tab" data-lang="api">API</button>
+                        </div>
+                        <button class="run-btn" id="runCode">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M4 2l10 6-10 6V2z" fill="currentColor"/>
+                            </svg>
+                            <span>Run</span>
+                        </button>
+                    </div>
+                    <div class="editor-content">
+                        <div class="editor-panel active" data-panel="cli">
+                            <textarea id="cliEditor" class="code-editor" spellcheck="false"># Convert video
+rsj-ffmpeg -i input.mp4 -o output.mp4</textarea>
+                        </div>
+                        <div class="editor-panel" data-panel="python">
+                            <textarea id="pythonEditor" class="code-editor" spellcheck="false">from rsj_ffmpeg import RSJToolkit
+
+toolkit = RSJToolkit()
+toolkit.convert("input.mp4", "output.mp4")</textarea>
+                        </div>
+                        <div class="editor-panel" data-panel="api">
+                            <textarea id="apiEditor" class="code-editor" spellcheck="false">curl -X POST http://localhost:8080/api/v1/convert \
+  -H "Content-Type: application/json" \
+  -d '{"input_file": "input.mp4", "output_file": "output.mp4"}'</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="playground-output">
+                    <div class="output-header">
+                        <h3>Output</h3>
+                        <button class="clear-btn" id="clearOutput">Clear</button>
+                    </div>
+                    <div class="output-content" id="outputContent">
+                        <div class="output-welcome">
+                            <div class="welcome-icon">⚡</div>
+                            <p>Select a template or write your own command</p>
+                            <p class="welcome-hint">Click "Run" to see the output</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison -->
+    <section class="feature-comparison">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Version Comparison</h2>
+                <p class="section-subtitle">See what's new in v2.0</p>
+            </div>
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div class="comparison-cell">Feature</div>
+                    <div class="comparison-cell">v1.0</div>
+                    <div class="comparison-cell highlight">v2.0</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">Video Processing</div>
+                    <div class="comparison-cell">✅</div>
+                    <div class="comparison-cell highlight">✅</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">Audio Processing</div>
+                    <div class="comparison-cell">✅</div>
+                    <div class="comparison-cell highlight">✅</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">AI Enhancement</div>
+                    <div class="comparison-cell">Basic</div>
+                    <div class="comparison-cell highlight">Advanced</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">Live Streaming</div>
+                    <div class="comparison-cell">❌</div>
+                    <div class="comparison-cell highlight">✅</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">REST API</div>
+                    <div class="comparison-cell">❌</div>
+                    <div class="comparison-cell highlight">✅</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">Telegram Bot</div>
+                    <div class="comparison-cell">❌</div>
+                    <div class="comparison-cell highlight">✅</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">Discord Bot</div>
+                    <div class="comparison-cell">❌</div>
+                    <div class="comparison-cell highlight">✅</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">Watch Folder</div>
+                    <div class="comparison-cell">❌</div>
+                    <div class="comparison-cell highlight">✅</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">Task Scheduler</div>
+                    <div class="comparison-cell">❌</div>
+                    <div class="comparison-cell highlight">✅</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-name">Docker Support</div>
+                    <div class="comparison-cell">❌</div>
+                    <div class="comparison-cell highlight">✅</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Development Roadmap</h2>
+                <p class="section-subtitle">What's coming next</p>
+            </div>
+            <div class="roadmap-timeline">
+                <div class="roadmap-item completed">
+                    <div class="roadmap-marker"></div>
+                    <div class="roadmap-content">
+                        <h3>v2.0 - Production Ready</h3>
+                        <p class="roadmap-date">Q4 2024 - Completed ✅</p>
+                        <ul>
+                            <li>Live streaming support</li>
+                            <li>AI enhancement engine</li>
+                            <li>REST API & bots</li>
+                            <li>Docker containerization</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="roadmap-item active">
+                    <div class="roadmap-marker"></div>
+                    <div class="roadmap-content">
+                        <h3>v2.1 - Enhanced AI</h3>
+                        <p class="roadmap-date">Q1 2025 - In Progress 🚀</p>
+                        <ul>
+                            <li>Real-time face detection/blur</li>
+                            <li>Advanced color grading presets</li>
+                            <li>Spatial audio processing</li>
+                            <li>Mobile app (Android/iOS)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-marker"></div>
+                    <div class="roadmap-content">
+                        <h3>v2.2 - Smart Automation</h3>
+                        <p class="roadmap-date">Q2 2025 - Planned 📋</p>
+                        <ul>
+                            <li>GPT-powered video editing</li>
+                            <li>Auto video montage creation</li>
+                            <li>Cloud processing integration</li>
+                            <li>Advanced analytics dashboard</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-marker"></div>
+                    <div class="roadmap-content">
+                        <h3>v3.0 - AI Director</h3>
+                        <p class="roadmap-date">Q3 2025 - Planned 🎯</p>
+                        <ul>
+                            <li>Full AI director mode</li>
+                            <li>Gaming stream optimization</li>
+                            <li>Virtual production tools</li>
+                            <li>Distributed processing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="brand-logo">
+                        <span class="skull-icon">☠️</span>
+                        <span>RSJ-FFMPEG</span>
+                    </div>
+                    <p>Ultimate AI-Powered Multimedia Automation Framework</p>
+                    <p class="copyright">© 2025 RAJSARASWATI JATAV | All Rights Reserved</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <a href="documentation.html">Documentation</a>
+                        <a href="playground.html">Playground</a>
+                        <a href="https://github.com/RAJSARASWATI-JATAV/rsj-ffmpeg-toolkit">GitHub</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <a href="https://t.me/rajsaraswatijatav" target="_blank">Telegram</a>
+                        <a href="https://instagram.com/official_rajsaraswati_jatav" target="_blank">Instagram</a>
+                        <a href="https://www.youtube.com/@RajsaraswatiJatav" target="_blank">YouTube</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="#">License</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Privacy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>🟢 STAY POWERFUL. STAY CREATIVE. UPGRADE YOURSELF! 🟢</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="playground.js"></script>
+</body>
+</html>

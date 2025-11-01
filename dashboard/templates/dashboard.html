@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSJ-FFMPEG Dashboard | RAJSARASWATI JATAV</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #00ffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            color: #00ffff;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #00ff00;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+        
+        .card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: #00ffff;
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .card-title {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00ff00;
+            margin: 1rem 0;
+        }
+        
+        .stat-label {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #00ff00);
+            transition: width 0.3s ease;
+        }
+        
+        .job-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .job-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+            border-left: 3px solid #00ffff;
+        }
+        
+        .job-item.completed {
+            border-left-color: #00ff00;
+        }
+        
+        .job-item.failed {
+            border-left-color: #ff0000;
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .job-id {
+            color: #00ffff;
+            font-weight: bold;
+        }
+        
+        .job-status {
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        
+        .job-status.processing {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+        }
+        
+        .job-status.completed {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+        }
+        
+        .job-status.failed {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 200px;
+            margin-top: 1rem;
+        }
+        
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .node-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        
+        .node-card.active {
+            border-color: #00ff00;
+        }
+        
+        .node-name {
+            color: #00ffff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .node-status {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #00ffff, #00cccc);
+            color: #000;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎬 RSJ-FFMPEG DASHBOARD</h1>
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span>Connected</span>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- System Stats -->
+        <div class="card">
+            <div class="card-title">💻 CPU Usage</div>
+            <div class="stat-value" id="cpu-usage">0%</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="cpu-progress" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🧠 Memory Usage</div>
+            <div class="stat-value" id="memory-usage">0%</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="memory-progress" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🎮 GPU Usage</div>
+            <div class="stat-value" id="gpu-usage">0%</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="gpu-progress" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">💾 Disk Usage</div>
+            <div class="stat-value" id="disk-usage">0%</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="disk-progress" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Active Jobs -->
+        <div class="card" style="grid-column: span 2;">
+            <div class="card-title">⚙️ Active Jobs</div>
+            <div class="job-list" id="active-jobs">
+                <p style="color: #888; text-align: center; padding: 2rem;">No active jobs</p>
+            </div>
+        </div>
+
+        <!-- Performance Chart -->
+        <div class="card" style="grid-column: span 2;">
+            <div class="card-title">📊 Performance Metrics</div>
+            <div class="chart-container">
+                <canvas id="performance-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Cluster Nodes -->
+        <div class="card" style="grid-column: span 2;">
+            <div class="card-title">🌐 Cluster Nodes</div>
+            <div class="node-grid" id="cluster-nodes">
+                <div class="node-card active">
+                    <div class="node-name">Master Node</div>
+                    <div class="node-status">Active</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-title">⚡ Quick Actions</div>
+            <button class="btn" onclick="clearCache()" style="width: 100%; margin-bottom: 0.5rem;">
+                🗑️ Clear Cache
+            </button>
+            <button class="btn" onclick="refreshStats()" style="width: 100%;">
+                🔄 Refresh Stats
+            </button>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card">
+            <div class="card-title">📋 Statistics</div>
+            <div style="margin-top: 1rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Total Jobs:</span>
+                    <span id="total-jobs" style="color: #00ffff;">0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Completed:</span>
+                    <span id="completed-jobs" style="color: #00ff00;">0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Failed:</span>
+                    <span id="failed-jobs" style="color: #ff0000;">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Socket.IO
+        const socket = io();
+
+        // Performance Chart
+        const ctx = document.getElementById('performance-chart').getContext('2d');
+        const performanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'CPU %',
+                    data: [],
+                    borderColor: '#00ffff',
+                    backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Memory %',
+                    data: [],
+                    borderColor: '#00ff00',
+                    backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    },
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                }
+            }
+        });
+
+        // Socket event handlers
+        socket.on('connected', (data) => {
+            console.log('Connected to dashboard:', data.message);
+        });
+
+        socket.on('stats_update', (stats) => {
+            updateSystemStats(stats);
+        });
+
+        socket.on('job_created', (job) => {
+            addJobToList(job);
+        });
+
+        socket.on('job_progress', (job) => {
+            updateJobProgress(job);
+        });
+
+        socket.on('job_completed', (job) => {
+            updateJobStatus(job, 'completed');
+        });
+
+        // Update system stats
+        function updateSystemStats(stats) {
+            if (stats.cpu_usage !== undefined) {
+                document.getElementById('cpu-usage').textContent = stats.cpu_usage.toFixed(1) + '%';
+                document.getElementById('cpu-progress').style.width = stats.cpu_usage + '%';
+            }
+            
+            if (stats.memory_usage !== undefined) {
+                document.getElementById('memory-usage').textContent = stats.memory_usage.toFixed(1) + '%';
+                document.getElementById('memory-progress').style.width = stats.memory_usage + '%';
+            }
+            
+            if (stats.gpu_usage !== undefined) {
+                document.getElementById('gpu-usage').textContent = stats.gpu_usage.toFixed(1) + '%';
+                document.getElementById('gpu-progress').style.width = stats.gpu_usage + '%';
+            }
+            
+            if (stats.disk_usage !== undefined) {
+                document.getElementById('disk-usage').textContent = stats.disk_usage.toFixed(1) + '%';
+                document.getElementById('disk-progress').style.width = stats.disk_usage + '%';
+            }
+
+            // Update chart
+            const now = new Date().toLocaleTimeString();
+            if (performanceChart.data.labels.length > 20) {
+                performanceChart.data.labels.shift();
+                performanceChart.data.datasets[0].data.shift();
+                performanceChart.data.datasets[1].data.shift();
+            }
+            performanceChart.data.labels.push(now);
+            performanceChart.data.datasets[0].data.push(stats.cpu_usage || 0);
+            performanceChart.data.datasets[1].data.push(stats.memory_usage || 0);
+            performanceChart.update();
+        }
+
+        // Add job to list
+        function addJobToList(job) {
+            const jobList = document.getElementById('active-jobs');
+            if (jobList.querySelector('p')) {
+                jobList.innerHTML = '';
+            }
+
+            const jobItem = document.createElement('div');
+            jobItem.className = 'job-item';
+            jobItem.id = 'job-' + job.id;
+            jobItem.innerHTML = `
+                <div class="job-header">
+                    <span class="job-id">${job.id}</span>
+                    <span class="job-status processing">${job.status}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${job.progress}%"></div>
+                </div>
+                <div style="font-size: 0.9rem; color: #888; margin-top: 0.5rem;">
+                    ${job.type} - ${job.input_file}
+                </div>
+            `;
+            jobList.appendChild(jobItem);
+        }
+
+        // Update job progress
+        function updateJobProgress(job) {
+            const jobItem = document.getElementById('job-' + job.id);
+            if (jobItem) {
+                const progressFill = jobItem.querySelector('.progress-fill');
+                progressFill.style.width = job.progress + '%';
+            }
+        }
+
+        // Update job status
+        function updateJobStatus(job, status) {
+            const jobItem = document.getElementById('job-' + job.id);
+            if (jobItem) {
+                jobItem.classList.add(status);
+                const statusSpan = jobItem.querySelector('.job-status');
+                statusSpan.textContent = status;
+                statusSpan.className = 'job-status ' + status;
+            }
+        }
+
+        // Clear cache
+        function clearCache() {
+            fetch('/api/cache/clear', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Cache cleared successfully!');
+                });
+        }
+
+        // Refresh stats
+        function refreshStats() {
+            socket.emit('request_update');
+        }
+
+        // Request initial update
+        socket.emit('request_update');
+    </script>
+</body>
+</html>

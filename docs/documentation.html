@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | RSJ-FFMPEG Power Toolkit</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .docs-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+        }
+        
+        .docs-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+        }
+        
+        .docs-sidebar h3 {
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--accent-cyan);
+        }
+        
+        .docs-nav {
+            list-style: none;
+        }
+        
+        .docs-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .docs-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+        
+        .docs-nav a:hover,
+        .docs-nav a.active {
+            color: var(--accent-cyan);
+            background: rgba(0, 243, 255, 0.1);
+        }
+        
+        .docs-content {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+        }
+        
+        .docs-content h1 {
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .docs-content h2 {
+            font-family: var(--font-primary);
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-cyan);
+        }
+        
+        .docs-content h3 {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .docs-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .docs-content ul,
+        .docs-content ol {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        .docs-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .api-method {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .method-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .method-type {
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .method-type.get { background: #00ff88; color: #0a0e27; }
+        .method-type.post { background: #00f3ff; color: #0a0e27; }
+        .method-type.put { background: #b537f2; color: white; }
+        .method-type.delete { background: #ff006e; color: white; }
+        
+        .method-path {
+            font-family: 'Courier New', monospace;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+        }
+        
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .param-table th {
+            background: rgba(0, 243, 255, 0.1);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .param-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .param-table code {
+            background: var(--bg-primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            color: var(--accent-cyan);
+        }
+        
+        @media (max-width: 768px) {
+            .docs-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .docs-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="skull-icon">☠️</span>
+                <span class="brand-text">RSJ-FFMPEG</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#api">API</a>
+                <a href="#cli">CLI</a>
+                <a href="#python">Python</a>
+                <a href="https://github.com/RAJSARASWATI-JATAV/rsj-ffmpeg-toolkit" target="_blank" class="btn-github">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Documentation -->
+    <div class="docs-container">
+        <!-- Sidebar -->
+        <aside class="docs-sidebar">
+            <h3>Documentation</h3>
+            <ul class="docs-nav">
+                <li><a href="#getting-started" class="active">Getting Started</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#cli">CLI Reference</a></li>
+                <li><a href="#python">Python API</a></li>
+                <li><a href="#api">REST API</a></li>
+                <li><a href="#streaming">Streaming</a></li>
+                <li><a href="#ai-engine">AI Engine</a></li>
+                <li><a href="#bots">Bots</a></li>
+                <li><a href="#automation">Automation</a></li>
+                <li><a href="#docker">Docker</a></li>
+            </ul>
+        </aside>
+
+        <!-- Content -->
+        <main class="docs-content">
+            <h1 id="getting-started">RSJ-FFMPEG Documentation</h1>
+            <p>Welcome to the complete documentation for RSJ-FFMPEG Power Toolkit v2.0.0 - the ultimate AI-powered multimedia automation framework.</p>
+
+            <h2 id="installation">Installation</h2>
+            <p>Choose your platform and follow the installation instructions:</p>
+            
+            <h3>Linux / Mac / Termux</h3>
+            <div class="code-block">
+                <code>curl -sL https://raw.githubusercontent.com/RAJSARASWATI-JATAV/rsj-ffmpeg-toolkit/main/install.sh | bash</code>
+            </div>
+
+            <h3>Windows PowerShell</h3>
+            <div class="code-block">
+                <code>iwr -useb https://raw.githubusercontent.com/RAJSARASWATI-JATAV/rsj-ffmpeg-toolkit/main/install.ps1 | iex</code>
+            </div>
+
+            <h3>Manual Installation</h3>
+            <div class="code-block large">
+                <pre><code>git clone https://github.com/RAJSARASWATI-JATAV/rsj-ffmpeg-toolkit.git
+cd rsj-ffmpeg-toolkit
+pip install -r requirements.txt
+python setup.py install</code></pre>
+            </div>
+
+            <h2 id="cli">CLI Reference</h2>
+            <p>The command-line interface provides powerful tools for video and audio processing.</p>
+
+            <h3>Basic Usage</h3>
+            <div class="code-block large">
+                <pre><code><span class="comment"># Convert video</span>
+rsj-ffmpeg -i input.mp4 -o output.mp4
+
+<span class="comment"># Get video information</span>
+rsj-ffmpeg -i video.mp4
+
+<span class="comment"># System check</span>
+rsj-ffmpeg --system-check
+
+<span class="comment"># Show version</span>
+rsj-ffmpeg --version</code></pre>
+            </div>
+
+            <h3>Video Processing</h3>
+            <div class="code-block large">
+                <pre><code><span class="comment"># AI upscaling</span>
+rsj-ffmpeg -i input.mp4 --ai-upscale 4x -o output.mp4
+
+<span class="comment"># Add watermark</span>
+rsj-ffmpeg -i input.mp4 --watermark "RAJSARASWATI JATAV" -o output.mp4
+
+<span class="comment"># Create GIF</span>
+rsj-ffmpeg -i input.mp4 --to-gif -o output.gif
+
+<span class="comment"># Extract frames</span>
+rsj-ffmpeg -i input.mp4 --extract-frames ./frames/
+
+<span class="comment"># Video enhancement</span>
+rsj-ffmpeg -i input.mp4 --enhance -o output.mp4</code></pre>
+            </div>
+
+            <h3>Batch Processing</h3>
+            <div class="code-block large">
+                <pre><code><span class="comment"># Batch convert directory</span>
+rsj-ffmpeg --batch ./videos/ --format mp4 --export ./output/
+
+<span class="comment"># Batch with AI upscaling</span>
+rsj-ffmpeg --batch ./videos/ --ai-upscale 2x --export ./output/
+
+<span class="comment"># Batch with watermark</span>
+rsj-ffmpeg --batch ./videos/ --watermark "RSJ" --export ./output/</code></pre>
+            </div>
+
+            <h2 id="python">Python API</h2>
+            <p>Use RSJ-FFMPEG programmatically in your Python applications.</p>
+
+            <h3>Basic Usage</h3>
+            <div class="code-block large">
+                <pre><code><span class="keyword">from</span> rsj_ffmpeg <span class="keyword">import</span> RSJToolkit
+
+<span class="comment"># Initialize toolkit</span>
+toolkit = RSJToolkit()
+
+<span class="comment"># Convert video</span>
+toolkit.convert_video(
+    input_file=<span class="string">"input.mp4"</span>,
+    output_file=<span class="string">"output.mp4"</span>
+)
+
+<span class="comment"># Get video info</span>
+info = toolkit.get_video_info(<span class="string">"video.mp4"</span>)
+<span class="keyword">print</span>(info)</code></pre>
+            </div>
+
+            <h3>Batch Processing</h3>
+            <div class="code-block large">
+                <pre><code>toolkit.batch_convert(
+    input_dir=<span class="string">"./videos/"</span>,
+    output_dir=<span class="string">"./output/"</span>,
+    ai_upscale=<span class="string">"4x"</span>,
+    enhance=<span class="keyword">True</span>,
+    watermark=<span class="string">"RAJSARASWATI JATAV"</span>
+)</code></pre>
+            </div>
+
+            <h2 id="api">REST API</h2>
+            <p>Control RSJ-FFMPEG remotely via REST API.</p>
+
+            <h3>Starting the API Server</h3>
+            <div class="code-block">
+                <code>python api_server.py</code>
+            </div>
+            <p>The API will be available at <code>http://localhost:8080</code></p>
+
+            <h3>API Endpoints</h3>
+
+            <div class="api-method">
+                <div class="method-header">
+                    <span class="method-type post">POST</span>
+                    <span class="method-path">/api/v1/convert</span>
+                </div>
+                <p>Convert a video file to a different format.</p>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>input_file</code></td>
+                            <td>string</td>
+                            <td>Path to input video file</td>
+                        </tr>
+                        <tr>
+                            <td><code>output_file</code></td>
+                            <td>string</td>
+                            <td>Path to output video file</td>
+                        </tr>
+                        <tr>
+                            <td><code>format</code></td>
+                            <td>string</td>
+                            <td>Output format (optional, default: mp4)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="api-method">
+                <div class="method-header">
+                    <span class="method-type post">POST</span>
+                    <span class="method-path">/api/v1/enhance</span>
+                </div>
+                <p>Enhance a video using AI.</p>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>input_file</code></td>
+                            <td>string</td>
+                            <td>Path to input video file</td>
+                        </tr>
+                        <tr>
+                            <td><code>output_file</code></td>
+                            <td>string</td>
+                            <td>Path to output video file</td>
+                        </tr>
+                        <tr>
+                            <td><code>ai_upscale</code></td>
+                            <td>string</td>
+                            <td>Upscale factor (2x, 4x, 8x)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="api-method">
+                <div class="method-header">
+                    <span class="method-type post">POST</span>
+                    <span class="method-path">/api/v1/stream/start</span>
+                </div>
+                <p>Start a live stream.</p>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>platform</code></td>
+                            <td>string</td>
+                            <td>Streaming platform (youtube, twitch, facebook)</td>
+                        </tr>
+                        <tr>
+                            <td><code>key</code></td>
+                            <td>string</td>
+                            <td>Stream key</td>
+                        </tr>
+                        <tr>
+                            <td><code>input_source</code></td>
+                            <td>string</td>
+                            <td>Input source (webcam, file, etc.)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 id="streaming">Streaming</h2>
+            <p>Stream to multiple platforms simultaneously with real-time overlays.</p>
+
+            <h3>Python API</h3>
+            <div class="code-block large">
+                <pre><code><span class="keyword">from</span> rsj_ffmpeg.streaming <span class="keyword">import</span> StreamManager
+
+stream_manager = StreamManager(config)
+
+<span class="comment"># Start YouTube stream</span>
+stream_manager.start_stream(
+    stream_id=<span class="string">"live_001"</span>,
+    platform=<span class="string">"youtube"</span>,
+    key=<span class="string">"YOUR_STREAM_KEY"</span>,
+    input_source=<span class="string">"webcam"</span>,
+    overlay=<span class="string">"logo.png"</span>,
+    stats_overlay=<span class="keyword">True</span>
+)</code></pre>
+            </div>
+
+            <h2 id="ai-engine">AI Engine</h2>
+            <p>Advanced AI-powered video and audio processing.</p>
+
+            <div class="code-block large">
+                <pre><code><span class="keyword">from</span> rsj_ffmpeg.ai_engine <span class="keyword">import</span> AIEngine
+
+ai_engine = AIEngine(config)
+
+<span class="comment"># AI upscaling</span>
+ai_engine.upscale_video(
+    input_file=<span class="string">"input.mp4"</span>,
+    output_file=<span class="string">"output.mp4"</span>,
+    scale=<span class="number">4</span>
+)
+
+<span class="comment"># Scene detection</span>
+scenes = ai_engine.scene_detection(
+    input_file=<span class="string">"video.mp4"</span>,
+    threshold=<span class="number">0.4</span>
+)
+
+<span class="comment"># Audio separation</span>
+ai_engine.audio_separation(
+    input_file=<span class="string">"song.mp3"</span>,
+    output_dir=<span class="string">"./stems/"</span>
+)</code></pre>
+            </div>
+
+            <h2 id="bots">Bots</h2>
+            
+            <h3>Telegram Bot</h3>
+            <div class="code-block large">
+                <pre><code><span class="comment"># Start Telegram bot</span>
+<span class="keyword">export</span> TELEGRAM_BOT_TOKEN=<span class="string">"your_token"</span>
+python telegram_bot.py
+
+<span class="comment"># Available commands:</span>
+/start - Initialize bot
+/convert mp4 - Convert video
+/enhance - AI enhance
+/watermark TEXT - Add watermark
+/gif - Create GIF
+/audio - Extract audio</code></pre>
+            </div>
+
+            <h3>Discord Bot</h3>
+            <div class="code-block large">
+                <pre><code><span class="comment"># Start Discord bot</span>
+<span class="keyword">export</span> DISCORD_BOT_TOKEN=<span class="string">"your_token"</span>
+python discord_bot.py
+
+<span class="comment"># Available commands:</span>
+!rsj convert mp4
+!rsj enhance
+!rsj watermark TEXT
+!rsj gif
+!rsj audio</code></pre>
+            </div>
+
+            <h2 id="automation">Automation</h2>
+            
+            <h3>Watch Folder</h3>
+            <div class="code-block large">
+                <pre><code>python automation/watch_folder.py \
+  --watch ./incoming/ \
+  --output ./processed/ \
+  --ai-upscale 2x \
+  --enhance \
+  --watermark <span class="string">"RAJSARASWATI JATAV"</span></code></pre>
+            </div>
+
+            <h3>Task Scheduler</h3>
+            <div class="code-block large">
+                <pre><code>python automation/scheduler.py --config tasks.json</code></pre>
+            </div>
+
+            <h2 id="docker">Docker Deployment</h2>
+            
+            <h3>Using Docker Compose</h3>
+            <div class="code-block large">
+                <pre><code><span class="comment"># Start all services</span>
+docker-compose up -d
+
+<span class="comment"># Start specific service</span>
+docker-compose up api
+docker-compose up telegram-bot
+docker-compose up discord-bot
+
+<span class="comment"># View logs</span>
+docker-compose logs -f
+
+<span class="comment"># Stop all services</span>
+docker-compose down</code></pre>
+            </div>
+
+            <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--border-color);">
+
+            <p style="text-align: center; color: var(--accent-green); font-weight: 600;">
+                🟢 STAY POWERFUL. STAY CREATIVE. UPGRADE YOURSELF! 🟢
+            </p>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 0.875rem;">
+                © 2025 RAJSARASWATI JATAV | All Rights Reserved
+            </p>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Smooth scroll for sidebar links
+        document.querySelectorAll('.docs-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                
+                if (target) {
+                    const offsetTop = target.offsetTop - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active link
+                    document.querySelectorAll('.docs-nav a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

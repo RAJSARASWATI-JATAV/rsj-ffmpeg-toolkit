@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSJ-FFMPEG Troubleshooting Guide | RAJSARASWATI JATAV</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .faq-section {
+            margin: 2rem 0;
+        }
+        
+        .faq-item {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+        
+        .faq-question h3 {
+            color: #00ffff;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .faq-icon {
+            color: #00ffff;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+        
+        .faq-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            color: #ccc;
+            line-height: 1.8;
+        }
+        
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 3px solid #00ff00;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: rgba(255, 165, 0, 0.1);
+            border-left: 3px solid #ffa500;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .error-box {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 3px solid #ff0000;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 RSJ-FFMPEG TROUBLESHOOTING</h1>
+            <p class="subtitle">Common Issues & Solutions | By RAJSARASWATI JATAV</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <a href="index.html">Home</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="playground.html">Playground</a>
+            <a href="tutorials.html">Tutorials</a>
+        </nav>
+
+        <section class="content-section">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search for issues...">
+            
+            <h2>⚠️ Installation Issues</h2>
+            
+            <div class="faq-section">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ FFmpeg not found error</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="error-box">
+                                <strong>Error:</strong> "FFmpeg not found in system PATH"
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Install FFmpeg:
+                                        <ul>
+                                            <li><strong>Windows:</strong> Download from ffmpeg.org and add to PATH</li>
+                                            <li><strong>Linux:</strong> <code>sudo apt install ffmpeg</code></li>
+                                            <li><strong>macOS:</strong> <code>brew install ffmpeg</code></li>
+                                            <li><strong>Termux:</strong> <code>pkg install ffmpeg</code></li>
+                                        </ul>
+                                    </li>
+                                    <li>Verify installation: <code>ffmpeg -version</code></li>
+                                    <li>Restart your terminal/IDE</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ Python module import error</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="error-box">
+                                <strong>Error:</strong> "ModuleNotFoundError: No module named 'rsj_ffmpeg'"
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Ensure you're in the correct directory</li>
+                                    <li>Install dependencies: <code>pip install -r requirements.txt</code></li>
+                                    <li>Add to Python path: <code>export PYTHONPATH="${PYTHONPATH}:$(pwd)"</code></li>
+                                    <li>Or install as package: <code>pip install -e .</code></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ Permission denied errors</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="error-box">
+                                <strong>Error:</strong> "Permission denied" when running scripts
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Make scripts executable: <code>chmod +x install.sh</code></li>
+                                    <li>Run with proper permissions: <code>sudo ./install.sh</code></li>
+                                    <li>Check file ownership: <code>ls -la</code></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>🎬 Video Processing Issues</h2>
+            
+            <div class="faq-section">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ Video encoding fails</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="error-box">
+                                <strong>Error:</strong> "Encoding failed" or "Invalid codec"
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Check FFmpeg codec support: <code>ffmpeg -codecs</code></li>
+                                    <li>Try different codec: Use h264 instead of h265</li>
+                                    <li>Update FFmpeg to latest version</li>
+                                    <li>Check input file integrity: <code>ffmpeg -i input.mp4</code></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ GPU encoding not working</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="error-box">
+                                <strong>Error:</strong> "GPU encoder not available"
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Check GPU detection:
+                                        <pre><code>from rsj_ffmpeg.gpu_acceleration import GPUAccelerationEngine
+gpu = GPUAccelerationEngine({})
+print(gpu.get_gpu_info())</code></pre>
+                                    </li>
+                                    <li>Install GPU drivers (NVIDIA/AMD/Intel)</li>
+                                    <li>For NVIDIA: Install CUDA toolkit</li>
+                                    <li>Rebuild FFmpeg with GPU support</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ Poor output quality</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="warning-box">
+                                <strong>Issue:</strong> Output video has poor quality or artifacts
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Increase quality setting: <code>quality="high"</code> or lower CRF value</li>
+                                    <li>Use better codec: h265 instead of h264</li>
+                                    <li>Increase bitrate: <code>bitrate="5M"</code></li>
+                                    <li>Use slower preset for better quality: <code>preset="slow"</code></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ Processing too slow</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="warning-box">
+                                <strong>Issue:</strong> Video processing takes too long
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Enable GPU acceleration</li>
+                                    <li>Use faster preset: <code>preset="fast"</code></li>
+                                    <li>Lower output resolution</li>
+                                    <li>Enable caching to avoid reprocessing</li>
+                                    <li>Use distributed processing for large batches</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>🔊 Audio Issues</h2>
+            
+            <div class="faq-section">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ No audio in output</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="error-box">
+                                <strong>Error:</strong> Output video has no audio
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Check if input has audio: <code>ffmpeg -i input.mp4</code></li>
+                                    <li>Ensure audio codec is supported</li>
+                                    <li>Use <code>-c:a copy</code> to copy audio stream</li>
+                                    <li>Check audio mapping in FFmpeg command</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ Audio sync issues</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="warning-box">
+                                <strong>Issue:</strong> Audio and video out of sync
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Use <code>-async 1</code> flag in FFmpeg</li>
+                                    <li>Re-encode both audio and video</li>
+                                    <li>Check frame rate consistency</li>
+                                    <li>Use <code>-vsync cfr</code> for constant frame rate</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>💾 Performance & Memory</h2>
+            
+            <div class="faq-section">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ Out of memory errors</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="error-box">
+                                <strong>Error:</strong> "MemoryError" or system runs out of RAM
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <ol>
+                                    <li>Process videos in smaller chunks</li>
+                                    <li>Lower output resolution</li>
+                                    <li>Close other applications</li>
+                                    <li>Use streaming processing instead of loading entire file</li>
+                                    <li>Enable swap space on Linux</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>❌ Cache filling up disk</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-content">
+                            <div class="warning-box">
+                                <strong>Issue:</strong> Cache directory consuming too much disk space
+                            </div>
+                            
+                            <div class="solution-box">
+                                <strong>✅ Solution:</strong>
+                                <pre><code>from rsj_ffmpeg.cache import CacheManager
+
+cache = CacheManager({})
+
+# Clean old cache
+cache.clean_cache(max_age_days=7)
+
+# Or clear all
+cache.clear_all_cache()
+
+# Check stats
+stats = cache.get_cache_stats()
+print(f"Cache size: {stats['total_size_mb']:.2f} MB")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>🔍 Still Need Help?</h2>
+            
+            <div class="solution-box">
+                <h3>📞 Contact Support</h3>
+                <ul>
+                    <li><strong>GitHub Issues:</strong> <a href="https://github.com/RAJSARASWATI-JATAV/rsj-ffmpeg-toolkit/issues" style="color: #00ffff;">Report Bug</a></li>
+                    <li><strong>Telegram:</strong> <a href="https://t.me/rajsaraswatijatav" style="color: #00ffff;">t.me/rajsaraswatijatav</a></li>
+                    <li><strong>Email:</strong> support@rsj-ffmpeg.com</li>
+                    <li><strong>Discord:</strong> Join our community server</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with 💀 by <strong>RAJSARASWATI JATAV</strong></p>
+            <p>© 2025 RSJ-FFMPEG | All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-content').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    if (searchTerm.length > 2) {
+                        item.classList.add('active');
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

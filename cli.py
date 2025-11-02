@@ -45,7 +45,7 @@ Examples:
     # Basic options
     parser.add_argument('-i', '--input', help='Input file or directory')
     parser.add_argument('-o', '--output', help='Output file')
-    parser.add_argument('--version', action='version', version='RSJ-FFMPEG v2.0.0')
+    parser.add_argument('--version', action='version', version='RSJ-FFMPEG v2.2.0')
     parser.add_argument('--system-check', action='store_true', help='Check system dependencies')
     
     # Batch processing
